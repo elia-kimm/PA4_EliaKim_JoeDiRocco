@@ -232,7 +232,7 @@ int main( int argc , char *argv[] )
         int grandTotal = 0;
         for (int i = 0; i < N; i++) {
             //printf("             %d              %d           %d\n", i+1, partsMade[i], iterations[i]);
-            printf("%15s %14s %15s", i+1, partsMade[i], iterations[i]);
+            printf("%15d %14d %15d\n", i+1, partsMade[i], iterations[i]);
             grandTotal += partsMade[i];
         }
         printf("====================================================\n");
