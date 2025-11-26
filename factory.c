@@ -267,11 +267,11 @@ void *subFactory( void *arg )
         // missing code goes here
         // choose how many to make
         int numCurMaking = minimum(myCapacity, remainsToMake);
-        remainsToMake -= numCurrMaking;
+        remainsToMake -= numCurMaking;
 
         pthread_mutex_unlock(&activeMutex);
 
-        partsImade += numCurrMaking;
+        partsImade += numCurMaking;
         myIterations++;
 
         printf("Factory (Joe DiRocco - Elia Kim)  # %d: Going to make   %d parts in  %d mSec\n",
