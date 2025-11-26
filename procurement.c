@@ -157,12 +157,13 @@ int main( int argc , char *argv[] )
 
     totalItems  = 0 ;
     printf("\n****** PROCUREMENT ( by %s ) Summary Report ******\n", myName);
-    printf("    Sub-Factory     Parts Made      Iterations\n");
+    printf("%15s %14s %15s", "Sub-Factory", "Parts Made", "Iterations\n");
     for (int i = 1; i <= numFactories; i++) {
-        printf("              %d             %d               %d\n", 
+        printf("%15d %14d %15d\n", 
             i, partsMade[i], iters[i]);
         totalItems += partsMade[i];
     }
+
     printf("====================================================\n");
     printf("Grand total parts made   =  %d   vs   order size of   %d\n\n", totalItems, orderSize);
 

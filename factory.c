@@ -228,11 +228,11 @@ int main( int argc , char *argv[] )
         double total_time = (end.tv_sec - start.tv_sec) * 1000.0 + (end.tv_usec - start.tv_usec) / 1000.0;
 
         printf("\n****** FACTORY Server ( by %s ) Summary Report ******\n", myName);
-        printf("%15s %14s %15s", "Sub-Factory", "Parts Made", "Iterations");
+        printf("%15s %14s %15s\n", "Sub-Factory", "Parts Made", "Iterations");
         int grandTotal = 0;
         for (int i = 0; i < N; i++) {
             //printf("             %d              %d           %d\n", i+1, partsMade[i], iterations[i]);
-            printf("%15d %14d %15d\n", i+1, partsMade[i], iterations[i]);
+            printf("%15d %14d %15d\n", i, partsMade[i], iterations[i]);
             grandTotal += partsMade[i];
         }
         printf("====================================================\n");
