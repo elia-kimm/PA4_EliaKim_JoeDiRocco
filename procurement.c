@@ -35,14 +35,14 @@ int main( int argc , char *argv[] )
             partsMade[ MAXFACTORIES+1 ] = {0} , totalItems = 0;
 
     char  *myName = "DiRocco-Kim" ; 
-    printf("\nPROCUREMENT: Started. Developed by %s\n\n" , myName );    
+    printf("\nThis is PROCUREMENT. ( by %s )\n\n" , myName );    
 
     char myUserName[30] ;
     getlogin_r ( myUserName , 30 ) ;
     time_t  now;
     time( &now ) ;
-    fprintf( stdout , "Logged in as user '%s' on %s\n\n" , myUserName ,  ctime( &now)  ) ;
-    fflush( stdout ) ;
+    //fprintf( stdout , "Logged in as user '%s' on %s\n\n" , myUserName ,  ctime( &now)  ) ;
+    //fflush( stdout ) ;
     
     if ( argc < 4 )
     {
@@ -128,7 +128,7 @@ int main( int argc , char *argv[] )
             int capacity = ntohl(msg.capacity);
             int iterPartsMade = ntohl(msg.partsMade);
             int duration = ntohl(msg.duration);
-            printf("PROCUREMENT: ( by %s ): Factory #%d  produced %d  parts in %d  milliSecs\n",
+            printf("PROCUREMENT ( by %s ): Factory #%d  produced %d  parts in %d  milliSecs\n",
                 myName, id, iterPartsMade, duration);
             //
             iters[id]++;
@@ -136,16 +136,16 @@ int main( int argc , char *argv[] )
             totalItems += ntohl(msg.partsMade);
         } else if (purpose == COMPLETION_MSG) {
             int id = ntohl(msg.facID);
-            printf("PROCUREMENT: ( by %s ): Factory #%d       COMPLETED its task\n", myName, id);
+            printf("PROCUREMENT ( by %s ): Factory #%d       COMPLETED its task\n", myName, id);
             activeFactories--;
         } else if (purpose == PROTOCOL_ERR) {
-            printf("PROCUREMENT: Received invalid msg ");
+            printf("PROCUREMENT Received invalid msg ");
             printMsg(&msg);
             puts(""); puts("");
             close(sd);
             exit(EXIT_FAILURE);
         } else {
-            printf("PROCUREMENT: Received invalid msg ");
+            printf("PROCUREMENT Received invalid msg ");
             printMsg(&msg);
             puts("");
         }
@@ -159,7 +159,7 @@ int main( int argc , char *argv[] )
     printf("\n****** PROCUREMENT ( by %s ) Summary Report ******\n", myName);
     printf("    Sub-Factory     Parts Made      Iterations\n");
     for (int i = 1; i <= numFactories; i++) {
-        printf("             %d              %d           %d\n", 
+        printf("              %d             %d               %d\n", 
             i, partsMade[i], iters[i]);
         totalItems += partsMade[i];
     }

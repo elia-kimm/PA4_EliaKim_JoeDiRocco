@@ -90,13 +90,13 @@ int main( int argc , char *argv[] )
     unsigned short port = 50015 ;      /* service port number  */
     int    N = 1 ;                     /* Num threads serving the client */
 
-    printf("\nThis is the FACTORY server developed by %s\n\n" , myName ) ;
+    printf("\nThis is the FACTORY server ( by %s )\n\n" , myName ) ;
     char myUserName[30] ;
     getlogin_r ( myUserName , 30 ) ;
     time_t  now;
     time( &now ) ;
-    fprintf( stdout , "Logged in as user '%s' on %s\n\n" , myUserName ,  ctime( &now)  ) ;
-    fflush( stdout ) ;
+    //fprintf( stdout , "Logged in as user '%s' on %s\n\n" , myUserName ,  ctime( &now)  ) ;
+    //fflush( stdout ) ;
 
 	switch (argc) 
 	{
@@ -164,10 +164,10 @@ int main( int argc , char *argv[] )
             err_sys("recvfrom failed");
         }
 
-        printf("\n\nFACTORY server received: " ) ;
+        printf("\n\nFACTORY server ( by %s ) received: ", myName ) ;
         printMsg( & msg1 );  puts("");
         char ipStr2[IPSTRLEN];
-        printf("        from IP %s port %u", 
+        printf("        From IP %s port %u", 
             inet_ntop(AF_INET, &clntSkt.sin_addr, ipStr2, IPSTRLEN),
             ntohs(clntSkt.sin_port));
 
@@ -267,13 +267,20 @@ void *subFactory( void *arg )
         // missing code goes here
         // choose how many to make
         int numCurMaking = minimum(myCapacity, remainsToMake);
+        remainsToMake -= numCurrMaking;
+
+        pthread_mutex_unlock(&activeMutex);
+
+        partsImade += numCurrMaking;
+        myIterations++;
+
         printf("Factory (Joe DiRocco - Elia Kim)  # %d: Going to make   %d parts in  %d mSec\n",
             factoryID, numCurMaking, myDuration); // I NEED TO NOT HARD CODE THE MYNAME PRINT
-        remainsToMake -= numCurMaking;
+        /*remainsToMake -= numCurMaking;
         pthread_mutex_unlock(&activeMutex);
 
         partsImade += numCurMaking;
-        myIterations++;
+        myIterations++;*/
 
         //sleep to simulate production
         Usleep(myDuration * 1000);
@@ -287,9 +294,10 @@ void *subFactory( void *arg )
         msg.partsMade = htonl(numCurMaking);
         msg.duration = htonl(myDuration);
 
-        if(sendto(sd, &msg, sizeof(msg), 0, (SA *)&clntSkt, clntLen) < 0 ) {
+        /*if(sendto(sd, &msg, sizeof(msg), 0, (SA *)&clntSkt, clntLen) < 0 ) {
             err_sys("sendto PRODUCTION_MSG failed");
-        }
+        }*/
+        sendto(sd, &msg, sizeof(msg), 0, (SA *)&clntSkt, clntLen);
 
 
     }
