@@ -230,7 +230,7 @@ int main( int argc , char *argv[] )
         printf("\n****** FACTORY Server ( by %s ) Summary Report ******\n", myName);
         printf("%15s %14s %15s\n", "Sub-Factory", "Parts Made", "Iterations");
         int grandTotal = 0;
-        for (int i = 0; i < N; i++) {
+        for (int i = 1; i < N; i++) {
             //printf("             %d              %d           %d\n", i+1, partsMade[i], iterations[i]);
             printf("%15d %14d %15d\n", i, partsMade[i], iterations[i]);
             grandTotal += partsMade[i];
